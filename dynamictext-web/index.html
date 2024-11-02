@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dynamic text</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>dynamic text</h1>
+
+    <!-- Add audio wave section -->
+        <div class="container">
+            <div class="controls">
+                <!-- Master height control -->
+                <div class="control-group master">
+                    <label for="master-height">Master Height Control (0-100%)</label>
+                    <div class="slider-container">
+                        <input type="range" id="master-height" min="0" max="100" value="50">
+                        <span id="master-height-value">50%</span>
+                    </div>
+                </div>
+    
+                <!-- Height-related controls including descender -->
+                <div class="control-group height-related">
+                    <label for="uppercase-height">Uppercase Height (528-760)</label>
+                    <div class="slider-container">
+                        <input type="range" id="uppercase-height" min="528" max="760" value="644">
+                        <span id="uppercase-height-value">644</span>
+                    </div>
+                </div>
+                <div class="control-group height-related">
+                    <label for="lowercase-height">Lowercase Height (416-570)</label>
+                    <div class="slider-container">
+                        <input type="range" id="lowercase-height" min="416" max="570" value="493">
+                        <span id="lowercase-height-value">493</span>
+                    </div>
+                </div>
+                <div class="control-group height-related">
+                    <label for="ascender-height">Ascender Height (649-854)</label>
+                    <div class="slider-container">
+                        <input type="range" id="ascender-height" min="649" max="854" value="750">
+                        <span id="ascender-height-value">750</span>
+                    </div>
+                </div>
+                <div class="control-group height-related">
+                    <label for="figure-height">Figure Height (560-788)</label>
+                    <div class="slider-container">
+                        <input type="range" id="figure-height" min="560" max="788" value="674">
+                        <span id="figure-height-value">674</span>
+                    </div>
+                </div>
+                <div class="control-group height-related">
+                    <label for="descender-depth">Descender Depth (-305--98)</label>
+                    <div class="slider-container">
+                        <input type="range" id="descender-depth" min="-305" max="-98" value="-203">
+                        <span id="descender-depth-value">-203</span>
+                    </div>
+                </div>
+    
+                <!-- Other controls -->
+                <div class="control-group">
+                    <label for="weight">Weight (100-1000)</label>
+                    <div class="slider-container">
+                        <input type="range" id="weight" min="100" max="1000" value="300">
+                        <span id="weight-value">300</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="slant">Slant (-10-0)</label>
+                    <div class="slider-container">
+                        <input type="range" id="slant" min="-10" max="0" value="0" step="0.1">
+                        <span id="slant-value">0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="width">Width (25-151)</label>
+                    <div class="slider-container">
+                        <input type="range" id="width" min="25" max="151" value="100">
+                        <span id="width-value">100</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="counter-width">Counter Width (323-603)</label>
+                    <div class="slider-container">
+                        <input type="range" id="counter-width" min="323" max="603" value="426">
+                        <span id="counter-width-value">426</span>
+                    </div>
+                </div>
+                <button id="reset">Reset to Defaults</button>
+            </div>
+        </div>
+        <div class="preview">
+            <div class="preview-text">
+                AaBbCc 123
+            </div>
+            <div class="sample-text">
+                The quick brown fox jumps over the lazy dog. 
+                PACK MY BOX WITH FIVE DOZEN LIQUOR JUGS.
+                0123456789 !@#$%^&*()
+            </div>
+        </div>
+        
+        <div class="visualizer-container">
+            <canvas id="waveform"></canvas>
+        </div>
+        
+        <div class="transcription-container">
+            <div id="transcription"></div>
+        </div>
+
+        <div id="timer">00:00</div>
+        <div class="audio-controls">
+            <div class="slider-container">
+                <span class="rate-label">Update Rate: 20ms</span>
+                <input type="range" id="rateSlider" min="10" max="100" value="20">
+            </div>
+            <div class="slider-container">
+                <span class="rate-label">Smoothing: 0.1</span>
+                <input type="range" id="smoothingSlider" min="1" max="50" value="10">
+            </div>
+            <div class="button-container">
+                <button onclick="toggleRecording()">Start Recording</button>
+                <button onclick="clearAll()">Clear</button>
+            </div>
+        </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
