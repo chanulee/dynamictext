@@ -96,8 +96,14 @@ updateFontVariationSettings();
 const smoothingSlider = document.getElementById('smoothingSlider');
 const smoothingLabel = smoothingSlider.parentElement.querySelector('.rate-label');
 
+let smoothingFactor = 0.20; // Changed default to 0.20
+
+// Update the smoothing slider initialization
+smoothingSlider.value = smoothingFactor * 100; // Convert to percentage for the slider
+smoothingLabel.textContent = `Smoothing: ${smoothingFactor.toFixed(2)}`;
+
 smoothingSlider.addEventListener('input', (e) => {
-    smoothingFactor = parseInt(e.target.value) / 100;
+    smoothingFactor = parseFloat(e.target.value) / 100;
     smoothingLabel.textContent = `Smoothing: ${smoothingFactor.toFixed(2)}`;
 });
 
@@ -123,11 +129,11 @@ const timerElement = document.getElementById('timer');
 const rateSlider = document.getElementById('rateSlider');
 const rateLabel = document.querySelector('.rate-label');
 
-const AMPLIFICATION = 3.5;
-const MIN_AMPLITUDE = 0.5;
-const NOISE_THRESHOLD = 2;
-const BAR_SPACING = 3;
-const BAR_WIDTH = 2;
+let AMPLIFICATION = 3.5;
+let MIN_AMPLITUDE = 0.5;
+let NOISE_THRESHOLD = 2;
+let SCALE_FACTOR = 0.6;
+let BASE_VALUE = 30;
 
 // Initialize speech recognition
 if ('webkitSpeechRecognition' in window) {
@@ -234,7 +240,6 @@ function toggleRecording() {
 }
 
 let smoothedHeight = 50; // Start at default value
-const smoothingFactor = 0.1; // Adjust this value between 0 and 1 (lower = smoother)
 
 function draw() {
     if (!isRecording) return;
@@ -258,7 +263,7 @@ function draw() {
 
     const maxAmplitude = 50;
     const rawPercentage = (normalizedAverage / maxAmplitude) * 100;
-    const targetHeight = Math.min(Math.round(rawPercentage * 0.6 + 30), 80);
+    const targetHeight = Math.min(Math.round(rawPercentage * SCALE_FACTOR + BASE_VALUE), 80);
     
     // Apply smoothing
     smoothedHeight = smoothedHeight + (smoothingFactor * (targetHeight - smoothedHeight));
@@ -327,4 +332,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // ... rest of your initialization code and event listeners ...
+});
+
+const amplificationSlider = document.getElementById('amplificationSlider');
+const minAmplitudeSlider = document.getElementById('minAmplitudeSlider');
+const noiseThresholdSlider = document.getElementById('noiseThresholdSlider');
+const scaleFactorSlider = document.getElementById('scaleFactorSlider');
+const baseValueSlider = document.getElementById('baseValueSlider');
+
+amplificationSlider.addEventListener('input', (e) => {
+    AMPLIFICATION = parseFloat(e.target.value);
+    document.getElementById('amplificationValue').textContent = AMPLIFICATION.toFixed(1);
+});
+
+minAmplitudeSlider.addEventListener('input', (e) => {
+    MIN_AMPLITUDE = parseFloat(e.target.value);
+    document.getElementById('minAmplitudeValue').textContent = MIN_AMPLITUDE.toFixed(1);
+});
+
+noiseThresholdSlider.addEventListener('input', (e) => {
+    NOISE_THRESHOLD = parseFloat(e.target.value);
+    document.getElementById('noiseThresholdValue').textContent = NOISE_THRESHOLD.toFixed(1);
+});
+
+scaleFactorSlider.addEventListener('input', (e) => {
+    SCALE_FACTOR = parseFloat(e.target.value);
+    document.getElementById('scaleFactorValue').textContent = SCALE_FACTOR.toFixed(1);
+});
+
+baseValueSlider.addEventListener('input', (e) => {
+    BASE_VALUE = parseInt(e.target.value);
+    document.getElementById('baseValueValue').textContent = BASE_VALUE;
 });
